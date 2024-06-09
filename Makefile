@@ -35,9 +35,14 @@ setup-venv: create-venv
 .PHONY: lint
 lint:             ## Run pep8, black, mypy linters.
 	$(ENV_PREFIX)flake8 $(PACKAGE_NAME)
-	$(ENV_PREFIX)black -l 79 --check $(PACKAGE_NAME)
-	$(ENV_PREFIX)black -l 79 --check tests/
+	$(ENV_PREFIX)flake8 tests/
+	$(ENV_PREFIX)black --check $(PACKAGE_NAME)
+	$(ENV_PREFIX)black --check tests/
 	$(ENV_PREFIX)mypy $(PACKAGE_NAME)
+	$(ENV_PREFIX)mypy tests/
+	$(ENV_PREFIX)pylint $(PACKAGE_NAME)
+	$(ENV_PREFIX)pylint tests/
+
 
 .PHONY: install
 install:          ## Install the project in dev mode.
