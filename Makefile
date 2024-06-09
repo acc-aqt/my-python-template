@@ -38,8 +38,6 @@ lint:             ## Run linters
 	$(ENV_PREFIX)mypy src/ tests/
 	$(ENV_PREFIX)pylint src/ tests/
 
-
-
 .PHONY: install
 install:          ## Install the project in dev mode.
 	@echo "Don't forget to run 'make setup-venv' if you got errors."
