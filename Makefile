@@ -1,6 +1,5 @@
 .ONESHELL:
 ENV_PREFIX=.venv/bin/
-PACKAGE_NAME=my_python_template
 
 .PHONY: clean
 clean:            ## cleanup the project structure
@@ -34,10 +33,10 @@ setup-venv: create-venv
 
 .PHONY: lint
 lint:             ## Run linters
-	$(ENV_PREFIX)flake8 $(PACKAGE_NAME) tests/
-	$(ENV_PREFIX)black $(PACKAGE_NAME) tests/
-	$(ENV_PREFIX)mypy $(PACKAGE_NAME) tests/
-	$(ENV_PREFIX)pylint $(PACKAGE_NAME) tests/
+	$(ENV_PREFIX)flake8 src/ tests/
+	$(ENV_PREFIX)black src/ tests/
+	$(ENV_PREFIX)mypy src/ tests/
+	$(ENV_PREFIX)pylint src/ tests/
 
 
 
@@ -48,10 +47,10 @@ install:          ## Install the project in dev mode.
 
 .PHONY: test
 test: lint       ## Run tests and generate coverage report.
-	$(ENV_PREFIX)pytest -v --cov-config .coveragerc --cov=$(PACKAGE_NAME) -l --tb=short --maxfail=1 tests/
+	$(ENV_PREFIX)pytest -v --cov=src/ --tb=short --maxfail=1 tests/
 	$(ENV_PREFIX)coverage xml
 	$(ENV_PREFIX)coverage html
 
 .PHONY: bandit
 bandit:        ## find common security issues in Python code
-	$(ENV_PREFIX)bandit -r $(PACKAGE_NAME)
+	$(ENV_PREFIX)bandit -r src/
