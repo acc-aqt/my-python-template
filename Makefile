@@ -10,7 +10,7 @@ clean:            ## cleanup the project structure
 	@rm -rf .mypy_cache
 	@rm -rf build
 	@rm -rf dist
-	@rm -rf *.egg-info
+	@rm -rf src/*.egg-info
 	@rm -rf .venv/
 	@rm -rf .coverage
 	@rm -rf coverage.xml
