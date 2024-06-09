@@ -1,6 +1,6 @@
-"""Testcases for the calculator module go here."""
+"""Testcases for example_module.py go here."""
 
-from src.calculator import my_sum
+from src.example_package.example_module import my_sum
 
 
 def test_my_sum_one_plus_one_is_two():
