@@ -29,6 +29,11 @@ virtualenv:       ## Create a virtual environment.
 	@echo
 	@echo "!!! Please run 'source .venv/bin/activate' to enable the environment !!!"
 
+.PHONY: setup-venv
+setup-venv: virtualenv      ## Create a virtual environment.
+	@echo "Running 'source .venv/bin/activate' !!!"
+	@source .venvf/bin/activate
+
 .PHONY: lint
 lint:             ## Run pep8, black, mypy linters.
 	$(ENV_PREFIX)flake8 $(PACKAGE_NAME)
