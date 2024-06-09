@@ -3,7 +3,7 @@ ENV_PREFIX=$(shell python -c "if __import__('pathlib').Path('.venv/bin/pip').exi
 PACKAGE_NAME="my_python_template"
 
 .PHONY: clean
-clean:            ## Clean unused files.
+clean:            ## cleanup the project structure
 	@find . -name '*.pyc' -type f -delete
 	@find . -type d -name '__pycache__' -exec rm -rf {} +
 	@rm -rf .cache
@@ -19,20 +19,18 @@ clean:            ## Clean unused files.
 	@rm -rf .tox/
 	@rm -rf docs/_build
 
-.PHONY: virtualenv
-virtualenv:       ## Create a virtual environment.
-	@echo "creating virtualenv ..."
+.PHONY: create-venv
+create-venv:
+	@echo "creating virtual environment ..."
 	@rm -rf .venv
 	@python3 -m venv .venv
 	@./.venv/bin/pip install -U pip
 	@./.venv/bin/pip install -e .[test]
-	@echo
-	@echo "!!! Please run 'source .venv/bin/activate' to enable the environment !!!"
 
 .PHONY: setup-venv
-setup-venv: virtualenv      ## Create a virtual environment.
-	@echo "Running 'source .venv/bin/activate' !!!"
-	@source .venvf/bin/activate
+setup-venv: create-venv
+	@echo "activating virtual environment ..."
+	@. .venvf/bin/activate
 
 .PHONY: lint
 lint:             ## Run pep8, black, mypy linters.
@@ -43,7 +41,7 @@ lint:             ## Run pep8, black, mypy linters.
 
 .PHONY: install
 install:          ## Install the project in dev mode.
-	@echo "Don't forget to run 'make virtualenv' if you got errors."
+	@echo "Don't forget to run 'make setup-venv' if you got errors."
 	$(ENV_PREFIX)pip install -e .[test]
 
 .PHONY: test
