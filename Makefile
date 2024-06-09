@@ -1,6 +1,6 @@
 .ONESHELL:
-ENV_PREFIX=$(shell python -c "if __import__('pathlib').Path('.venv/bin/pip').exists(): print('.venv/bin/')")
-PACKAGE_NAME="my_python_template"
+ENV_PREFIX=.venv/bin/
+PACKAGE_NAME=my_python_template
 
 .PHONY: clean
 clean:            ## cleanup the project structure
@@ -30,18 +30,15 @@ create-venv:
 .PHONY: setup-venv
 setup-venv: create-venv
 	@echo "activating virtual environment ..."
-	@. .venvf/bin/activate
+	@. .venv/bin/activate
 
 .PHONY: lint
-lint:             ## Run pep8, black, mypy linters.
-	$(ENV_PREFIX)flake8 $(PACKAGE_NAME)
-	$(ENV_PREFIX)flake8 tests/
-	$(ENV_PREFIX)black --check $(PACKAGE_NAME)
-	$(ENV_PREFIX)black --check tests/
-	$(ENV_PREFIX)mypy $(PACKAGE_NAME)
-	$(ENV_PREFIX)mypy tests/
-	$(ENV_PREFIX)pylint $(PACKAGE_NAME)
-	$(ENV_PREFIX)pylint tests/
+lint:             ## Run linters
+	$(ENV_PREFIX)flake8 $(PACKAGE_NAME) tests/
+	$(ENV_PREFIX)black $(PACKAGE_NAME) tests/
+	$(ENV_PREFIX)mypy $(PACKAGE_NAME) tests/
+	$(ENV_PREFIX)pylint $(PACKAGE_NAME) tests/
+
 
 
 .PHONY: install
@@ -50,7 +47,7 @@ install:          ## Install the project in dev mode.
 	$(ENV_PREFIX)pip install -e .[test]
 
 .PHONY: test
-test: lint        ## Run tests and generate coverage report.
+test: lint       ## Run tests and generate coverage report.
 	$(ENV_PREFIX)pytest -v --cov-config .coveragerc --cov=$(PACKAGE_NAME) -l --tb=short --maxfail=1 tests/
 	$(ENV_PREFIX)coverage xml
 	$(ENV_PREFIX)coverage html
