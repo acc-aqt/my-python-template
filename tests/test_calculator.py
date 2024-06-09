@@ -1,4 +1,4 @@
-"""Testscases for the calculator module go here."""
+"""Testcases for the calculator module go here."""
 
 from my_python_template.calculator import my_sum
 
