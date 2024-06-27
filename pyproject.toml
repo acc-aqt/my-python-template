@@ -9,6 +9,9 @@ readme = "README.md"
 version = "0.1.0"
 requires-python = ">=3.8.1"
 
+[project.scripts]
+hello-world = "example_package:hello_world"
+
 [project.optional-dependencies]
 test = [
     "bandit[toml]==1.7.5", # find common security issues in Python code
