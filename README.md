@@ -4,7 +4,7 @@ Template for my python projects.
 
 ## Setting up your own virtual environment
 
-Run `make virtualenv` to create a virtual environment.
+Run `make create-venv` to create a virtual environment.
 then activate it with `source .venv/bin/activate`.
 
 ## Install the project in develop mode
