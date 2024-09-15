@@ -44,7 +44,7 @@ install:          ## Install the project in dev mode.
 	$(ENV_PREFIX)pip install -e .[test]
 
 .PHONY: test
-test: lint       ## Run tests and generate coverage report.
+test:       ## Run tests and generate coverage report.
 	$(ENV_PREFIX)pytest -v --cov=src/ --tb=short --maxfail=1 tests/
 	$(ENV_PREFIX)coverage xml
 	$(ENV_PREFIX)coverage html
