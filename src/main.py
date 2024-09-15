@@ -1,6 +1,7 @@
-""""""
-from example_package.example_module import my_sum
+"""Module containing an exemplary entry point."""
+
 from argparse import ArgumentParser
+from example_package.example_module import my_sum
 
 
 def entry_point():
