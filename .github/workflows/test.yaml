@@ -29,4 +29,4 @@ jobs:
       - name: Run linters
         run: make lint
       - name: Run the tests
-        run: make test
+        run: pytest

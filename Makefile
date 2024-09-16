@@ -46,7 +46,7 @@ install:          ## Install the project in dev mode.
 .PHONY: test
 test:       ## Run tests and generate coverage report.
 	$(ENV_PREFIX)set -e; \
-	pytest -v --cov=src/ --tb=short --maxfail=1 tests/
+	$(ENV_PREFIX)pytest -v --cov=src/ --tb=short --maxfail=1 tests/
 	$(ENV_PREFIX)coverage xml
 	$(ENV_PREFIX)coverage html
 
