@@ -1,1 +1,1 @@
-"""Docstring for the package goes here."""
+"""Package containing the source code."""
