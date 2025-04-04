@@ -58,8 +58,7 @@ run:              ## Run main.py
 
 .PHONY: test
 test:       ## Run tests and generate coverage report.
-	$(ENV_PREFIX)pytest tests
-
+	$(ENV_PREFIX)pytest tests --cov=src --cov-report=html
 
 .PHONY: bandit
 bandit:        ## find common security issues in Python code

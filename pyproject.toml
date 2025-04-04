@@ -14,9 +14,8 @@ my-sum = "main:entry_point"
 
 
 [project.optional-dependencies]
-test = [
-  "pytest"
-]
+test = ["pytest", "coverage", "pytest-cov"]
+
 lint = [
   "black",
   "isort",
