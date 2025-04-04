@@ -24,31 +24,42 @@ create-venv:
 	@rm -rf .venv
 	@python3 -m venv .venv
 	@./.venv/bin/pip install -U pip
-	@./.venv/bin/pip install -e .[test]
+	@./.venv/bin/pip install -e ".[test,lint]"
 
 .PHONY: setup-venv
 setup-venv: create-venv
 	@echo "activating virtual environment ..."
 	@. .venv/bin/activate
 
-.PHONY: lint
-lint:             ## Run linters
-	$(ENV_PREFIX)flake8 src/ tests/
-	$(ENV_PREFIX)black src/ tests/
-	$(ENV_PREFIX)mypy src/ tests/
-	$(ENV_PREFIX)pylint src/ tests/
-
 .PHONY: install
 install:          ## Install the project in dev mode.
 	@echo "Don't forget to run 'make setup-venv' if you got errors."
 	$(ENV_PREFIX)pip install -e .[test]
 
+.PHONY: lint
+lint:             ## Run linters
+	@echo "Running isort..."
+	$(ENV_PREFIX)isort .
+	@echo "Running docstrfmt..."
+	$(ENV_PREFIX)docstrfmt .
+	@echo "Running black..."
+	$(ENV_PREFIX)black .
+	@echo "Running ruff format..."
+	$(ENV_PREFIX)ruff format .
+	@echo "Running ruff check..."
+	$(ENV_PREFIX)ruff check .
+	@echo "Running mypy..."
+	$(ENV_PREFIX)mypy .
+	@echo "Running pylint..."
+	$(ENV_PREFIX)pylint src/ tests/
+
+run:              ## Run main.py
+	$(ENV_PREFIX)python src/main.py
+
 .PHONY: test
 test:       ## Run tests and generate coverage report.
-	$(ENV_PREFIX)set -e; \
-	$(ENV_PREFIX)pytest -v --cov=src/ --tb=short --maxfail=1 tests/
-	$(ENV_PREFIX)coverage xml
-	$(ENV_PREFIX)coverage html
+	$(ENV_PREFIX)pytest tests
+
 
 .PHONY: bandit
 bandit:        ## find common security issues in Python code
