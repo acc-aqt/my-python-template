@@ -3,7 +3,7 @@
 from io import StringIO
 from unittest.mock import patch
 
-from src.main import entry_point
+from example_package.main import entry_point
 
 
 @patch("sys.stdout", new_callable=StringIO)  # capture prints
